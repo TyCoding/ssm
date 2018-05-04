@@ -1,13 +1,3 @@
----
-title: SSM整合、分页查询案例
-date: 2018-04-24
-top: 1
-tags: java
-comments: false
-
----
-
-
 
 **SSM框架简单的整合并实现分页查询**
 

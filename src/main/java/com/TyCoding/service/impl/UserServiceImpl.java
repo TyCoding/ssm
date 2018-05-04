@@ -20,7 +20,8 @@ public class UserServiceImpl implements UserService {
     /**
      * 用户登录的方法
      */
-    public User login(User user) {
-        return userMapper.login(user);
+    public User login(String username) {
+        return userMapper.login(username);
     }
+
 }

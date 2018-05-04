@@ -6,6 +6,6 @@
 
     <!-- 用户登录的方法 -->
     <select id="login" parameterType="User" resultType="User">
-        select * from user
+        select * from user where username = #{username}
     </select>
 </mapper>

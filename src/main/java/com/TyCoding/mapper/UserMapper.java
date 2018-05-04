@@ -7,5 +7,5 @@ import com.TyCoding.pojo.User;
  * @date 18-4-7下午9:10
  */
 public interface UserMapper {
-    User login(User user);
+    User login(String username);
 }
