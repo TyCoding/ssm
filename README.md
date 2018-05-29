@@ -875,6 +875,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 If you have some questions after you see this article, you can contact me or you can find some info by clicking these links.
 
-- Blog@TyCoding's blog
-- GitHub@TyCoding
-- ZhiHu@TyCoding
+- [Blog@TyCoding's blog](http://tycoding.cn/)
+- [GitHub@TyCoding](https://github.com/TyCoding)
+- [ZhiHu@TyCoding](https://www.zhihu.com/people/tomo-83-82/activities)
