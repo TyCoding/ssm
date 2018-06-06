@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com</groupId>
-  <artifactId>TyCoding</artifactId>
+  <groupId>cn</groupId>
+  <artifactId>ssm</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>TyCoding Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
   <build>
-    <finalName>TyCoding</finalName>
+    <finalName>ssm</finalName>
     <resources>
       <resource>
         <directory>${basedir}/src/main/java</directory>
@@ -33,7 +33,6 @@
     </dependency>
 
     <!-- 1.日志 -->
-    <!-- 实现slf4j接口并整合 -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>

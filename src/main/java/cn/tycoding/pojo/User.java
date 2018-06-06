@@ -1,10 +1,10 @@
-package com.TyCoding.pojo;
+package cn.tycoding.pojo;
 
 import java.io.Serializable;
 
 /**
  * 这是用户登录的JavaBean
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-7下午7:28
  */
 public class User implements Serializable {

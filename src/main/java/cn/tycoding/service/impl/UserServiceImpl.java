@@ -1,13 +1,13 @@
-package com.TyCoding.service.impl;
+package cn.tycoding.service.impl;
 
-import com.TyCoding.mapper.UserMapper;
-import com.TyCoding.pojo.User;
-import com.TyCoding.service.UserService;
+import cn.tycoding.mapper.UserMapper;
+import cn.tycoding.pojo.User;
+import cn.tycoding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-7下午9:09
  */
 @Service

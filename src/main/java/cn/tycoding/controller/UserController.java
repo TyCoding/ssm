@@ -1,7 +1,7 @@
-package com.TyCoding.controller;
+package cn.tycoding.controller;
 
-import com.TyCoding.pojo.User;
-import com.TyCoding.service.UserService;
+import cn.tycoding.pojo.User;
+import cn.tycoding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * 用户的控制层
  *
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-7下午9:00
  */
 @Controller

@@ -1,9 +1,9 @@
-package com.TyCoding.service;
+package cn.tycoding.service;
 
-import com.TyCoding.pojo.User;
+import cn.tycoding.pojo.User;
 
 /**
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-7下午9:09
  */
 public interface UserService {

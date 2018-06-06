@@ -1,7 +1,7 @@
-package com.TyCoding.controller;
+package cn.tycoding.controller;
 
-import com.TyCoding.pojo.Customer;
-import com.TyCoding.service.CustomerService;
+import cn.tycoding.pojo.Customer;
+import cn.tycoding.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * 这是客户管理的Controller层
  *
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-7下午7:26
  */
 @Controller
@@ -26,6 +26,7 @@ public class CustomerController {
 
     /**
      * 注入service层
+     * 使用@Resource和@Autowired都可以实现Bean的自动注入
      */
     @Autowired
     private CustomerService customerService;
@@ -34,12 +35,7 @@ public class CustomerController {
      * 跳转到添加客户功能页面
      */
     @RequestMapping("/toSavePage")
-    public String toSavePage(Model model) {
-        // 先去后台查询数据库中最后一个主键值，默认设置下一个主键值是新插入数据的id
-        int id = customerService.findLastId();
-        System.out.println("后台查询到的id值：" + id);
-        // 将查询到的值设置到Model中
-        model.addAttribute("newId", id + 1);
+    public String toSavePage() {
         return "page/save";
     }
 
@@ -86,8 +82,7 @@ public class CustomerController {
      */
     @RequestMapping(value="/delete")
     public String delete(@RequestParam int c_id,Model model){
-        int rows = customerService.delete(c_id);
-        if(rows > 0){
+        if(customerService.delete(c_id) > 0){
             model.addAttribute("message","删除客户信息成功");
             return "page/info";
         }else{

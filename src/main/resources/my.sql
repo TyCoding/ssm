@@ -1,3 +1,4 @@
+create database ssm character set utf8;
 create table user(
   uid int primary key auto_increment,
   username varchar(100),

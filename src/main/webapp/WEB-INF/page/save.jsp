@@ -39,10 +39,6 @@
     <hr/>
     <br/>
     <form class="form-inline text-center" action="<%=basePath%>/customer/save.do" method="post">
-        <div hidden="hidden">
-            <!-- 这个id值默认中数据库中查询 -->
-            <input type="text" name="c_id" class="form-control" value="${newId}"/>
-        </div>
         <div class="form-group form-inline">
             <label>客户姓名：</label>
             <input type="text" name="c_name" class="form-control"/>

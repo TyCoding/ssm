@@ -1,9 +1,9 @@
-package com.TyCoding.mapper;
+package cn.tycoding.mapper;
 
-import com.TyCoding.pojo.User;
+import cn.tycoding.pojo.User;
 
 /**
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-7下午9:10
  */
 public interface UserMapper {

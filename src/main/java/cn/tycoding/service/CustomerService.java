@@ -1,20 +1,20 @@
-package com.TyCoding.service;
+package cn.tycoding.service;
 
-import com.TyCoding.pojo.Customer;
-import com.TyCoding.pojo.PageBean;
+import cn.tycoding.pojo.Customer;
+import cn.tycoding.pojo.PageBean;
 
 import java.util.Map;
 
 /**
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-14下午9:13
  */
 public interface CustomerService {
+
     void save(Customer customer);
 
-    int findLastId();
-
     // 这里要手动设置为pageBean
+//    Object findByPage(int pageCode, int pageSize, Map<String,Object> conMap);
     PageBean<Customer> findByPage(int pageCode, int pageSize, Map<String,Object> conMap);
 
     int delete(int c_id);

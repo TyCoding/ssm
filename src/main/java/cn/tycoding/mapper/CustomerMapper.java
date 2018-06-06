@@ -1,19 +1,17 @@
-package com.TyCoding.mapper;
+package cn.tycoding.mapper;
 
-import com.TyCoding.pojo.Customer;
+import cn.tycoding.pojo.Customer;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-14下午9:14
  */
 public interface CustomerMapper {
     void save(Customer customer);
-
-    int findLastId();
 
     int selectCount();
 

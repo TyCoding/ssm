@@ -1,10 +1,10 @@
-package com.TyCoding.pojo;
+package cn.tycoding.pojo;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author huys
+ * @author TyCoding
  * @date 18-3-10下午12:47
  */
 public class PageBean<T> implements Serializable {
@@ -12,13 +12,13 @@ public class PageBean<T> implements Serializable {
     //当前页
     private int pageCode;
 
-    //总页数=总条数/每页显示的条数
+    //总页数=总记录数/每页显示的记录数
     private int totalPage;
 
     //总记录数
     private int totalCount;
 
-    //每页显示的记录条数
+    //每页显示的记录数
     private int pageSize;
 
     //每页显示的数据

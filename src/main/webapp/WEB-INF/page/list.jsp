@@ -221,9 +221,6 @@
                         <h4 class="modal-title">修改客户信息</h4>
                     </div>
                     <div class="modal-body" style="margin-left: 80px;">
-                        <div hidden="hidden">
-                            <input type="text" name="c_id" class="form-control" id="c_id"/>
-                        </div>
                         <div class="form-group form-inline">
                             <label>客户姓名：</label>
                             <input type="text" name="c_name" class="form-control" id="c_name"/>

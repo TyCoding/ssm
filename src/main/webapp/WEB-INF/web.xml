@@ -8,7 +8,7 @@
         <welcome-file>/WEB-INF/index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- 配置spring的字符编码过滤器 -->
+    <!-- 配置spring的字符编码过滤器，保证request请求的中文字符不会乱码（注意这个过滤器要放到最前面） -->
     <filter>
         <filter-name>CharacterEncoding</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -19,22 +19,25 @@
     </filter>
     <filter-mapping>
         <filter-name>CharacterEncoding</filter-name>
+        <!-- 设置这个字符编码过滤器作用与每一个请求 -->
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- 加载spring容器 -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/spring-*.xml</param-value>
-    </context-param>
+    <!-- 配置Spring的servlet监听器 -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <!-- 加载spring容器 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/beans.xml</param-value>
+    </context-param>
 
-    <!-- 配置springmvc的核心控制器 -->
+    <!-- 配置springmvc的前端控制器，request请求会先经过这个控制器 -->
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 同时加载Spring MVC的配置文件。request经过了前端控制器接下来就根据映射器判断该请求需要走哪个控制器 -->
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring/springmvc.xml</param-value>
@@ -42,6 +45,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
+        <!-- *.do 表示我们请求映射路径后缀为.do，  我们也可以设置为/ -->
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 

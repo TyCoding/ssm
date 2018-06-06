@@ -1,9 +1,9 @@
-package com.TyCoding.service.impl;
+package cn.tycoding.service.impl;
 
-import com.TyCoding.mapper.CustomerMapper;
-import com.TyCoding.pojo.Customer;
-import com.TyCoding.pojo.PageBean;
-import com.TyCoding.service.CustomerService;
+import cn.tycoding.mapper.CustomerMapper;
+import cn.tycoding.pojo.Customer;
+import cn.tycoding.pojo.PageBean;
+import cn.tycoding.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * 客户的service层
- * @author TyCoding
+ * @author tycoding
  * @date 18-4-14下午9:14
  */
 @Service
@@ -30,13 +30,6 @@ public class CustomerServiceImpl implements CustomerService {
      */
     public void save(Customer customer) {
         customerMapper.save(customer);
-    }
-
-    /**
-     * 查询最后customer表中最后一个主键值，那么下一个默认就是新增客户的主键值
-     */
-    public int findLastId() {
-        return customerMapper.findLastId();
     }
 
     /**
