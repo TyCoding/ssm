@@ -95,7 +95,10 @@ public String login(@RequestParam String username,@RequestParam String password,
 我们使用了Mybatis的接口代理开发模式（保证接口和配置文件在同一目录下且名称相同），直接在`Mapper.xml`中编写原生sql语句，即可进行与数据库间的交互。
 `id`指明是哪个方法调用这个sql；`parameterType`指定了接口传递的参数类型(我们根据用户名查询所以是String类型)；`resultType`指定该查询语句返回值的数据类型（因为我们已经在配置文件启用了别名配置`typeAliases`，所以这里直接指定pojo对象类名即可；若没有启动别名配置，就必须写类的全限定名）。使用`#{}`会将传递的参数值会自动添加`""`；注意`#{}`和`${}`区分，后者则是直接拼接传递进来的字符串，而不会添加任何符号，且前者能避免sql注入。
 
+
+
 ## 2. 实现客户信息的添加
+
 所谓添加客户信息，就是将JSP中提交的表单数据持久化到数据库中。
 ### 2.1 创建表结构
 建表SQL请看github项目中的resources目录下的.sql文件
@@ -110,6 +113,9 @@ public String save(Customer customer, Model model) {
 }
 ```
 ![](img/1.png)
+
+
+
 当点击了提交按钮，表单中的所有数据都应该被持久化到数据库中，而要知道表单中的参数有很多，我们直接在请求映射方法的参数列表中写参数显然是不可取的，那么我们如果写一个pojo对象，Spring就会根据这个pojo对象中的属性和JSP表单中的参数进行对应，如果完全对应那么请求方法会正常执行，一但有某个参数不对应，那么就会报错。（注意我们表单中并不需要指定`id`主键值，因为设计表时已经指定了该`id`主键为自增长，即使不指定值，`id`依然会自增，你指定了却可能会产生错误，因为到保证每次的`id`值都是递增的）。当数据持久化成功，就使用Spring的`Model`对象在域对象中设置一个名为`message`的值。最后再返回到视图层。
 
 ### 2.3 编写Mapper.xml
@@ -131,7 +137,10 @@ public String save(Customer customer, Model model) {
 ```
 如上这仍然是普通的SQL语句，注意`parameterType`如上我们设置为`Customer`其实代表的是`cn.tycoding.pojo.Customer`这个对象，因为我们已经在`beans.xml`中启用了mybatis的别名配置。SQL插入语句中不需要指定`id`这个字段，原因是我们已经配置了`id`为自增主键
 
+
+
 ## 3. 实现客户信息的删除功能
+
 ### 3.1 编写Controller层
 ```java
 @RequestMapping(value="/delete")
@@ -154,7 +163,10 @@ public String delete(@RequestParam int c_id,Model model){
 ```
 如此，还是一个再普通不过的SQL语句，既可以实现根据id删除的功能。
 
+
+
 ## 4. 更新客户信息
+
 更新客户信息需要我们实现两个功能：1.再点击*编辑*按钮时(我们在按钮设置了`onclick="return edit(${xx.id};"`)，如此我们用js监听这个事件，点击了按钮，js获取到id，请求后台根据这个id值查询数据库中的数据。那么我们先看一下js部分吧：
 ```javascript
 function edit(id){
@@ -218,7 +230,10 @@ public String update(Customer customer,Model model){
 </update>
 ```
 
+
+
 ## 5. 分页查询
+
 解释之前我们先看一下分页查询的页面：
 ![](img/2.png)
 ### 5.1 封装PageBean
@@ -241,11 +256,15 @@ public class PageBean<T> implements Serializable {
 }
 ```
 因为我们要实现分页查询，所以无法避免一些参数，这里直接将其封装为一个JavaBean就是为了方便调用，而配置自定义泛型`<T>`就是为了供多个对象的调用，如果你在对Customer类进行分页查询，那么在调用时只需要`new pageBean<Customer>()`即可将查询的数据绑定为`Customer`类的数据；对其他类进行分页亦是这样。
-> pageCode: 表示当前（你点击）的是第几页。
-> totalPage: 表示总页数（总页数=总记录数/每页显示的记录数）。通过`select count(*) from 表`查询到总记录数，每页显示的记录是用户指定的；那么*总记录数/每页显示几条记录*就得到了一共有几页（前端页面展示）。
-> totalCount: 表示总记录数，由SQL：`select count(*) from 表`查询到该表咋数据库中一共多少条记录数。
-> pageSize: 表示每页显示的记录数，这个是用户决定的，比如我们想让每页显示5条数据，那么这个`pageSize`就应该是5，即每页会显示5条记录。
-> beanList: 表示当前显示的数据。经上面的一系列查询和封装，我们最终需要将数据返回给页面，而这些需要返回给页面的数据最终会被封装到这个`beanList`中，在jsp中使用`<forEach>`标签遍历`beanList`得到封装的数据并显示到页面上。
+> **pageCode:** 表示当前（你点击）的是第几页。
+>
+> **totalPage:** 表示总页数（总页数=总记录数/每页显示的记录数）。通过`select count(*) from 表`查询到总记录数，每页显示的记录是用户指定的；那么*总记录数/每页显示几条记录*就得到了一共有几页（前端页面展示）。
+>
+> **totalCount:** 表示总记录数，由SQL：`select count(*) from 表`查询到该表咋数据库中一共多少条记录数。
+>
+> **pageSize:** 表示每页显示的记录数，这个是用户决定的，比如我们想让每页显示5条数据，那么这个`pageSize`就应该是5，即每页会显示5条记录。
+>
+> **beanList:** 表示当前显示的数据。经上面的一系列查询和封装，我们最终需要将数据返回给页面，而这些需要返回给页面的数据最终会被封装到这个`beanList`中，在jsp中使用`<forEach>`标签遍历`beanList`得到封装的数据并显示到页面上。
 
 ### 5.2 jsp页面
 ![](img/3.png)
@@ -391,7 +410,7 @@ public PageBean<Customer> findByPage(int pageCode, int pageSize, Map<String, Obj
 		尾溢出: 若end > 总记录数   则brgin=end-9	 end=总页数	
 		
 此项目设置每页显示5个页码：
-	若 总页数 <= 5		则begin=1			  end=总页数
+	若 总页数 <= 5		则begin=1			 end=总页数
 	若 总页数 >  5		则begin=当前页-1	  	end=当前页+3
 		头溢出: 若begin < 1		  则begin=1	   end=5
 		尾溢出: 若end > 总记录数   则brgin=end-4	 end=总页数
@@ -405,9 +424,13 @@ public PageBean<Customer> findByPage(int pageCode, int pageSize, Map<String, Obj
 
 ****
 
+
+
 # 综上
 
 到此为止，我们基本讲完了SSM框整合的过程，你是否看明白了呢？其实整合SSM框架并不难，按照这个思路，我们学习完SSM框架整合，就可以着手练习一些小项目了。详细过程，大家可以从我的项目源码中分析。
+
+
 
 # 项目运行截图
 
