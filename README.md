@@ -19,29 +19,42 @@
 ```
 ## 项目结构
 ![](img/0.png)
+
+
+
 **备注**
 如上是一个标准的maven项目，我们来解释一下各个目录：
 
 > **img:** 放了一些README.md文档所需要得图片，没有实际意义。
+>
 > **controller:** web层，存放springmvc的相关控制器类。
+>
 > **mapper:** 存放接口和映射文件。因为本项目采用了mybatis的接口开发，所以需要将接口和映射文件放在同一目录下，并且名称相同。
+>
 > **pojo:** 存放Java的实体类
+>
 > **service:** 业务层，用于存放一些业务层代码。
 
 不要奇怪为什么没有出现Dao层，因为本项目相对简单，并没有多复杂的逻辑，所以也就必要再写一个Dao层进行扩展。
 
 > **resources:** 是maven项目存放配置文件的根目录，在本例中包含两个子文件夹:`resource`、`spring`。前者是存放一些如`logback.properties`的配置文件；后者是存放spring的配置文件（spring和springmvc）。
+>
 > **my.sql:** 存放了关于项目数据库创建和表创建的SQL语句。
+>
 > **fonts:** 存放一些字体的配置文件。为了页面的美感，我们采用了*Awesome*图标集。
+>
 > **lib:** 包含了项目中用到的一些前端类库。
+>
 > **page:** 包含所有前端页面。
 
 ## 整合思路
 继上一篇博文：[Spring MVC起步](http://tycoding.cn/2018/05/29/Spring-5/)其实我们已经了解了如何整合Spring和Spring MVC框架。那么，接下来我们就需要了解如何在此基础上整合Mybatis框架。
 首先须知Mybatis框架是一个持久层框架，而Spring MVC是WEB层框架，Spring框架则充当着业务层的角色。那么将三者联系起来正好组成了`web--service--dao`的三层架构体系。那么整合思路就如下所示了：
-  1. 整合dao(即mapper)，实现Mybatis和Spring的整合
-  2. 整合service，由Spring管理service接口，在service中可以调用dao（mapper）
-  3. 整合web（controller），实现Spring MVC和Spring的整合，在controller中调用service
+    1. 整合dao(即mapper)，实现Mybatis和Spring的整合
+    2. 整合service，由Spring管理service接口，在service中可以调用dao（mapper）
+    3. 整合web（controller），实现Spring MVC和Spring的整合，在controller中调用service
+
+
 
 # 需求实现
 ## 1. 实现用户登录功能
