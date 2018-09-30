@@ -24,6 +24,17 @@ public class PageBean<T> implements Serializable {
     //每页显示的数据
     private List<T> beanList;
 
+    public PageBean() {
+    }
+
+    public PageBean(int pageCode, int totalPage, int totalCount, int pageSize, List<T> beanList) {
+        this.pageCode = pageCode;
+        this.totalPage = totalPage;
+        this.totalCount = totalCount;
+        this.pageSize = pageSize;
+        this.beanList = beanList;
+    }
+
     public int getPageCode() {
         return pageCode;
     }

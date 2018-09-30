@@ -10,64 +10,53 @@ import java.io.Serializable;
 public class Customer implements Serializable {
 
     //客户的id
-    private int c_id;
+    private Long id;
     //客户的姓名
-    private String c_name;
+    private String name;
     //客户的电话
-    private String c_telephone;
+    private String telephone;
     //客户的住址
-    private String c_address;
+    private String address;
     //客户备注
-    private String c_remark;
+    private String remark;
 
-    public int getC_id() {
-        return c_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setC_id(int c_id) {
-        this.c_id = c_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getC_name() {
-        return c_name;
+    public String getName() {
+        return name;
     }
 
-    public void setC_name(String c_name) {
-        this.c_name = c_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getC_telephone() {
-        return c_telephone;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setC_telephone(String c_telephone) {
-        this.c_telephone = c_telephone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    public String getC_address() {
-        return c_address;
+    public String getAddress() {
+        return address;
     }
 
-    public void setC_address(String c_address) {
-        this.c_address = c_address;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getC_remark() {
-        return c_remark;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setC_remark(String c_remark) {
-        this.c_remark = c_remark;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "c_id='" + c_id + '\'' +
-                ", c_name='" + c_name + '\'' +
-                ", c_telephone='" + c_telephone + '\'' +
-                ", c_address='" + c_address + '\'' +
-                ", c_remark='" + c_remark + '\'' +
-                '}';
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

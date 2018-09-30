@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 这是客户管理的Controller层
  *
@@ -48,77 +44,93 @@ public class CustomerController {
     }
 
     /**
-     * 客户信息保存的方法
+     * 客户信息保存
+     *
+     * @param customer
+     * @param model
+     * @return
      */
     @RequestMapping(value = "/save")
-    public String save(Customer customer, Model model) {
-        customerService.save(customer);
-        model.addAttribute("message", "保存客户信息系成功");
+    public String create(Customer customer, Model model) {
+        try {
+            customerService.create(customer);
+            model.addAttribute("message", "保存客户信息系成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "page/info";
     }
 
     /**
-     * 客户信息列表（分页查询功能）
-     */
-    @RequestMapping(value="/findByPage")
-    public String findByPage(@RequestParam(value="pageCode",defaultValue = "1",required = false)int pageCode,
-                             @RequestParam(value="pageSize",defaultValue = "2",required = false)int pageSize,
-                             HttpServletRequest request,
-                             Model model){
-        // 封装分页数据
-        String c_name = request.getParameter("c_name");
-        String c_telephone = request.getParameter("c_telephone");
-        Map<String,Object> conMap = new HashMap<String,Object>();
-        conMap.put("c_name",c_name);
-        conMap.put("c_telephone",c_telephone);
-
-        // 回显数据
-        model.addAttribute("page",customerService.findByPage(pageCode,pageSize,conMap));
-        return "page/list";
-    }
-
-    /**
      * 客户信息删除的方法
+     *
+     * @param id
+     * @param model
+     * @return
      */
-    @RequestMapping(value="/delete")
-    public String delete(@RequestParam int c_id,Model model){
-        if(customerService.delete(c_id) > 0){
-            model.addAttribute("message","删除客户信息成功");
-            return "page/info";
-        }else{
-            model.addAttribute("message","删除客户信息失败");
-            return "page/info";
+    @RequestMapping(value = "/delete")
+    public String delete(@RequestParam Long id, Model model) {
+        try {
+            customerService.delete(id);
+            model.addAttribute("message", "删除客户信息成功");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return "page/info";
     }
+
 
     /**
      * 根据id查询客户信息方法
+     *
+     * @param customer
+     * @return
      */
     @ResponseBody
-    @RequestMapping(value="/findById")
-    public Customer findById(@RequestBody Customer customer){
-        Customer customer_info = customerService.findById(customer.getC_id());
-        if(customer_info != null){
+    @RequestMapping(value = "/findById")
+    public Customer findById(@RequestBody Customer customer) {
+        Customer customer_info = customerService.findById(customer.getId());
+        if (customer_info != null) {
             return customer_info;
-        }else{
+        } else {
             return null;
         }
     }
 
     /**
      * 更新客户信息的方法
+     *
+     * @param customer
+     * @param model
+     * @return
      */
-    @RequestMapping(value="/update")
-    public String update(Customer customer,Model model){
-        int rows = customerService.update(customer);
-        if(rows > 0){
-            model.addAttribute("message","更新客户信息成功");
-            return "page/info";
-        }else{
-            model.addAttribute("message","更新客户信息失败");
-            return "page/info";
+    @RequestMapping(value = "/update")
+    public String update(Customer customer, Model model) {
+        try {
+            customerService.update(customer);
+            model.addAttribute("message", "更新客户信息成功");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return "page/info";
+    }
 
+    /**
+     * 分页查询
+     *
+     * @param customer 查询条件
+     * @param pageCode 当前页
+     * @param pageSize 每页显示的记录数
+     * @return
+     */
+    @RequestMapping("/findByPage")
+    public String findByPage(Customer customer,
+                             @RequestParam(value = "pageCode", required = false, defaultValue = "1") int pageCode,
+                             @RequestParam(value = "pageSize", required = false, defaultValue = "2") int pageSize,
+                             Model model) {
+        // 回显数据
+        model.addAttribute("page", customerService.findByPage(customer, pageCode, pageSize));
+        return "page/list";
     }
 
 }

@@ -44,13 +44,13 @@
     <form class="form-inline" action="<%=basePath%>/customer/findByPage.do" method="post">
         <div class="form-group">
             <label>客户姓名：</label>
-            <input type="text" class="form-control" name="c_name"/>
+            <input type="text" class="form-control" name="name"/>
         </div>
         &nbsp;&nbsp;
         &nbsp;&nbsp;
         <div class="form-group">
             <label>客户电话</label>
-            <input type="text" class="form-control" name="c_telephone"/>
+            <input type="text" class="form-control" name="telephone"/>
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -77,16 +77,16 @@
             <tbody>
             <c:forEach items="${requestScope.page.beanList}" var="customer">
                 <tr class="text-center">
-                    <td>${customer.c_id}</td>
-                    <td>${customer.c_name}</td>
-                    <td>${customer.c_telephone}</td>
-                    <td>${customer.c_address}</td>
-                    <td>${customer.c_remark}</td>
+                    <td>${customer.id}</td>
+                    <td>${customer.name}</td>
+                    <td>${customer.telephone}</td>
+                    <td>${customer.address}</td>
+                    <td>${customer.remark}</td>
                     <td>
-                        <a href="#" onclick="return edit(${customer.c_id})" style="text-decoration: none;">
+                        <a href="#" onclick="return edit(${customer.id})" style="text-decoration: none;">
                             <span class="fa fa-edit fa-fw"></span>
                         </a>
-                        <a href="#" onclick="return trash(${customer.c_id})" style="text-decoration: none;" data-toggle="modal" data-target="#trashModal">
+                        <a href="#" onclick="return trash(${customer.id})" style="text-decoration: none;" data-toggle="modal" data-target="#trashModal">
                             <span class="fa fa-trash-o fa-fw"></span>
                         </a>
                     </td>
@@ -223,25 +223,25 @@
                     <div class="modal-body" style="margin-left: 80px;">
                         <div class="form-group form-inline">
                             <label>客户姓名：</label>
-                            <input type="text" name="c_name" class="form-control" id="c_name"/>
+                            <input type="text" name="name" class="form-control" id="name"/>
                         </div>
                         <br/>
                         <br/>
                         <div class="form-group form-inline">
                             <label>客户电话：</label>
-                            <input type="text" name="c_telephone" class="form-control" id="c_telephone"/>
+                            <input type="text" name="telephone" class="form-control" id="telephone"/>
                         </div>
                         <br/>
                         <br/>
                         <div class="form-group form-inline">
                             <label>客户住址：</label>
-                            <input type="text" name="c_address" class="form-control" id="c_address"/>
+                            <input type="text" name="address" class="form-control" id="address"/>
                         </div>
                         <br/>
                         <br/>
                         <div class="form-group form-inline">
                             <label>客户备注：</label>
-                            <input type="text" name="c_remark" class="form-control" id="c_remark"/>
+                            <input type="text" name="remark" class="form-control" id="remark"/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -258,13 +258,13 @@
 <script src="<%=basePath%>/lib/bootstrap.min.js"></script>
 <script type="text/javascript">
     // 删除信息的方法
-    function trash(c_id){
-        if(!c_id){
+    function trash(id){
+        if(!id){
             alert("error");
         }else{
             $(".delSure").click(function(){
                 $.ajax({
-                    url: '<%=basePath%>/customer/delete.do?c_id='+c_id,
+                    url: '<%=basePath%>/customer/delete.do?id='+id,
                     type: 'POST',
                     success: function(data){
                         $("body").html(data);
@@ -276,8 +276,8 @@
 
 
     // 编辑信息的方法
-    function edit(c_id){
-        if(!c_id){
+    function edit(id){
+        if(!id){
             alert("error");
         }else{
             // 先去查询数据
@@ -287,14 +287,14 @@
                 dataType: 'json',
                 contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify({
-                    c_id: c_id
+                    id: id
                 }),
                 success: function(data){
-                    $("#c_id").val(data.c_id);
-                    $("#c_name").val(data.c_name);
-                    $("#c_telephone").val(data.c_telephone);
-                    $("#c_address").val(data.c_address);
-                    $("#c_remark").val(data.c_remark);
+                    $("#id").val(data.id);
+                    $("#name").val(data.name);
+                    $("#telephone").val(data.telephone);
+                    $("#address").val(data.address);
+                    $("#remark").val(data.remark);
                     $("#editModal").modal('show');
                 },
                 error: function(){

@@ -41,25 +41,25 @@
     <form class="form-inline text-center" action="<%=basePath%>/customer/save.do" method="post">
         <div class="form-group form-inline">
             <label>客户姓名：</label>
-            <input type="text" name="c_name" class="form-control"/>
+            <input type="text" name="name" class="form-control"/>
         </div>
         <br/>
         <br/>
         <div class="form-group form-inline">
             <label>客户电话：</label>
-            <input type="text" name="c_telephone" class="form-control"/>
+            <input type="text" name="telephone" class="form-control"/>
         </div>
         <br/>
         <br/>
         <div class="form-group form-inline">
             <label>客户住址：</label>
-            <input type="text" name="c_address" class="form-control"/>
+            <input type="text" name="address" class="form-control"/>
         </div>
         <br/>
         <br/>
         <div class="form-group form-inline">
             <label>客户备注：</label>
-            <input type="text" name="c_remark" class="form-control"/>
+            <input type="text" name="remark" class="form-control"/>
         </div>
         <br/>
         <br/>

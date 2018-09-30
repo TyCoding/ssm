@@ -5,7 +5,8 @@
 <mapper namespace="cn.tycoding.mapper.UserMapper">
 
     <!-- 用户登录的方法 -->
-    <select id="login" parameterType="User" resultType="User">
-        select * from user where username = #{username}
+    <select id="login" parameterType="cn.tycoding.pojo.User" resultType="User">
+        select * from tb_user where username = #{username}
     </select>
+
 </mapper>

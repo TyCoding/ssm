@@ -6,78 +6,85 @@
 
     <!-- resultMap用于实现映射结果集 -->
     <resultMap id="BaseResultMap" type="cn.tycoding.pojo.Customer">
-        <id column="c_id" property="c_id" jdbcType="INTEGER"/>
-        <result column="c_name" property="c_name" jdbcType="VARCHAR"/>
-        <result column="c_telephone" property="c_telephone" jdbcType="VARCHAR"/>
-        <result column="c_address" property="c_address" jdbcType="VARCHAR"/>
-        <result column="c_remark" property="c_remark" jdbcType="VARCHAR"/>
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!-- 客户信息保存的方法 -->
-    <insert id="save" parameterType="Customer">
+    <insert id="create" parameterType="Customer">
         insert into
-        customer(
-          c_name,
-          c_telephone,
-          c_address,
-          c_remark)
+        tb_customer(
+          name,
+          telephone,
+          address,
+          remark)
         values(
-          #{c_name},
-          #{c_telephone},
-          #{c_address},
-          #{c_remark}
+          #{name},
+          #{telephone},
+          #{address},
+          #{remark}
         );
     </insert>
 
-    <!-- 查询总的记录数 -->
-    <select id="selectCount" resultType="int">
-        select count(*) from customer;
-    </select>
-
-    <!-- 分页查询 -->
-    <select id="findByPage" parameterType="Map" resultMap="BaseResultMap">
-        select * from customer
-        <if test="start != null and size != null">
-            limit #{start},#{size}
-        </if>
-    </select>
-
-    <!-- 多条件查询 -->
-    <select id="findCondition" parameterType="Map" resultMap="BaseResultMap">
-        <!-- where 1=1 可以保证where后的语句永远是正确的
-            因为在where后的动态SQL可能会执行也可能不会不会执行，如果没有执行，那么where后将跟一个空值，那么显然这样是会报错的
-        -->
-        select * from customer where 1 = 1
-        <if test="c_name != null and c_name != ''">
-            and c_name like concat('%', #{c_name}, '%')
-        </if>
-        <if test="c_telephone != null and c_telephone != ''">
-            and c_telephone like concat('%', #{c_telephone}, '%')
-        </if>
-        <!-- 我们通过在Service中的计算决定了我们每次请求的数据应该从那一页开始，那一页结束 -->
-        <if test="start != null and size != null">
-            limit #{start},#{size}
-        </if>
-    </select>
-
     <!-- 根据id删除信息的方法 -->
     <delete id="delete" parameterType="int">
-        delete from customer where c_id = #{c_id}
+        delete from tb_customer where id = #{id}
     </delete>
 
     <!-- 根据客户id查询客户信息的方法 -->
     <select id="findById" parameterType="int" resultType="Customer">
-        select * from customer where c_id = #{c_id}
+        select * from tb_customer where id = #{id}
     </select>
 
     <!-- 更新客户信息的方法 -->
     <update id="update" parameterType="Customer">
-        update customer set
-            c_id = #{c_id},
-            c_name = #{c_name},
-            c_telephone = #{c_telephone},
-            c_address = #{c_address},
-            c_remark = #{c_remark}
-        where c_id = #{c_id}
+        update tb_customer set
+            id = #{id},
+            name = #{name},
+            telephone = #{telephone},
+            address = #{address},
+            remark = #{remark}
+        where id = #{id}
     </update>
+
+    <!-- 分页-条件查询 -->
+    <select id="findByPage" parameterType="cn.tycoding.pojo.Customer" resultMap="BaseResultMap">
+        SELECT * FROM tb_customer WHERE 1=1
+        <if test="name != null">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="telephone != null">
+            AND telephone LIKE CONCAT('%', #{telephone}, '%')
+        </if>
+    </select>
+
+    <!--&lt;!&ndash; 分页查询 &ndash;&gt;-->
+    <!--<select id="findByPage" parameterType="Map" resultMap="BaseResultMap">-->
+        <!--select * from customer-->
+        <!--<if test="start != null and size != null">-->
+            <!--limit #{start},#{size}-->
+        <!--</if>-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash; 多条件查询 &ndash;&gt;-->
+    <!--<select id="findCondition" parameterType="Map" resultMap="BaseResultMap">-->
+        <!--&lt;!&ndash; where 1=1 可以保证where后的语句永远是正确的-->
+            <!--因为在where后的动态SQL可能会执行也可能不会不会执行，如果没有执行，那么where后将跟一个空值，那么显然这样是会报错的-->
+        <!--&ndash;&gt;-->
+        <!--select * from customer where 1 = 1-->
+        <!--<if test="c_name != null and c_name != ''">-->
+            <!--and c_name like concat('%', #{c_name}, '%')-->
+        <!--</if>-->
+        <!--<if test="c_telephone != null and c_telephone != ''">-->
+            <!--and c_telephone like concat('%', #{c_telephone}, '%')-->
+        <!--</if>-->
+        <!--&lt;!&ndash; 我们通过在Service中的计算决定了我们每次请求的数据应该从那一页开始，那一页结束 &ndash;&gt;-->
+        <!--<if test="start != null and size != null">-->
+            <!--limit #{start},#{size}-->
+        <!--</if>-->
+    <!--</select>-->
+
 </mapper>

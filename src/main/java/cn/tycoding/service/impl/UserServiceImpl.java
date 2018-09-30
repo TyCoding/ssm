@@ -6,6 +6,8 @@ import cn.tycoding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author tycoding
  * @date 18-4-7下午9:09
@@ -24,4 +26,23 @@ public class UserServiceImpl implements UserService {
         return userMapper.login(username);
     }
 
+    public List<User> findAll() {
+        return null;
+    }
+
+    public User findById(Long id) {
+        return null;
+    }
+
+    public void create(User user) {
+
+    }
+
+    public void delete(Long id) {
+
+    }
+
+    public void update(User user) {
+
+    }
 }

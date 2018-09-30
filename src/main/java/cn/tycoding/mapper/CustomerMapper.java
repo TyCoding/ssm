@@ -1,27 +1,25 @@
 package cn.tycoding.mapper;
 
 import cn.tycoding.pojo.Customer;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.github.pagehelper.Page;
 
 /**
  * @author tycoding
  * @date 18-4-14下午9:14
  */
 public interface CustomerMapper {
-    void save(Customer customer);
 
-    int selectCount();
+    void create(Customer customer);
 
-    List<Customer> findByPage(HashMap<String,Object> map);
+    void delete(Long id);
 
-    List<Customer> findCondition(Map<String,Object> conMap);
+    Customer findById(Long id);
 
-    int delete(int c_id);
+    void update(Customer customer);
 
-    Customer findById(int c_id);
+    Page<Customer> findByPage(Customer customer);
 
-    int update(Customer customer);
+//    int selectCount();
+
+//    List<Customer> findCondition(Map<String,Object> conMap);
 }

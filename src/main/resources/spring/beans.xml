@@ -38,17 +38,20 @@
         <property name="dataSource" ref="dataSource"/>
         <!-- 扫描pojo包，使用别名配置(在mybatis中可以使用别名，即pojo的名称) -->
         <property name="typeAliasesPackage" value="cn.tycoding.pojo"/>
-        <!-- 扫描mapper的配置文件 -->
-        <!--<property name="mapperLocations" value="classpath:cn/tycoding/mapper/*.xml"/>-->
-        <!--也可以引入mybatis配置文件 -->
-        <!--<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"/>-->
+
+        <!-- 加载mybatis的配置文件 -->
+        <property name="configLocation" value="classpath:mybatis/mybatis.xml"/>
+
+        <!-- 扫描Mapper层的配置文件 -->
+        <property name="mapperLocations" value="classpath:cn/tycoding/mapper/*.xml"/>
     </bean>
 
     <!-- 使用mybatis的接口代理开发模式(必须保证接口和对应的mybatis的xml名称相同，且在一个文件夹内) -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描mapper的配置文件 -->
         <property name="basePackage" value="cn.tycoding.mapper"/>
-        <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
+
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
 

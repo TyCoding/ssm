@@ -10,18 +10,18 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     //用户id
-    private int uid;
+    private Long id;
     //用户登录名
     private String username;
     //用户密码
     private String password;
 
-    public int getUid() {
-        return uid;
+    public Long getId() {
+        return id;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -39,14 +39,4 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "uid='" + uid + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
 }
