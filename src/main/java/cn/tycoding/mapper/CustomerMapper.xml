@@ -30,12 +30,12 @@
     </insert>
 
     <!-- 根据id删除信息的方法 -->
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="Long">
         delete from tb_customer where id = #{id}
     </delete>
 
     <!-- 根据客户id查询客户信息的方法 -->
-    <select id="findById" parameterType="int" resultType="Customer">
+    <select id="findById" parameterType="Long" resultType="Customer">
         select * from tb_customer where id = #{id}
     </select>
 
