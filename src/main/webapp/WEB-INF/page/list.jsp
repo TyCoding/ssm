@@ -171,7 +171,7 @@
                         </c:if>
                         <c:if test="${i != requestScope.page.pageCode}">
                             <li>
-                                <a href="<%=basePath%>/customer/findByPage.do?pageCode=${i}">${i}</a>
+                                <a href="<%=basePath%>/customer/findByPage.do?pageCode=${i}&pageSize=${requestScope.page.pageSize}">${i}</a>
                             </li>
                         </c:if>
                     </c:forEach>
