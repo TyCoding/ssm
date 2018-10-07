@@ -86,7 +86,8 @@
                         <a href="#" onclick="return edit(${customer.id})" style="text-decoration: none;">
                             <span class="fa fa-edit fa-fw"></span>
                         </a>
-                        <a href="#" onclick="return trash(${customer.id})" style="text-decoration: none;" data-toggle="modal" data-target="#trashModal">
+                        <a href="#" onclick="return trash(${customer.id})" style="text-decoration: none;"
+                           data-toggle="modal" data-target="#trashModal">
                             <span class="fa fa-trash-o fa-fw"></span>
                         </a>
                     </td>
@@ -103,6 +104,7 @@
                     &nbsp;
                     &nbsp;
                     <strong>每页显示</strong>
+                    <input name="pageCode" value="${requestScope.page.pageCode}" hidden="hidden"/>
                     <select class="form-control" name="pageSize">
                         <option value="2"
                                 <c:if test="${requestScope.page.pageSize == 2}">selected</c:if> >2
@@ -126,6 +128,7 @@
                     &nbsp;
                     <button type="submit" class="btn btn-sm btn-info">GO!</button>
                 </label>
+
                 <ul class="pagination" style="float:right;">
                     <li>
                         <a href="<%=basePath%>/customer/findByPage.do?pageCode=1"><strong>首页</strong></a>
@@ -259,15 +262,15 @@
 <script src="<%=basePath%>/lib/bootstrap.min.js"></script>
 <script type="text/javascript">
     // 删除信息的方法
-    function trash(id){
-        if(!id){
+    function trash(id) {
+        if (!id) {
             alert("error");
-        }else{
-            $(".delSure").click(function(){
+        } else {
+            $(".delSure").click(function () {
                 $.ajax({
-                    url: '<%=basePath%>/customer/delete.do?id='+id,
+                    url: '<%=basePath%>/customer/delete.do?id=' + id,
                     type: 'POST',
-                    success: function(data){
+                    success: function (data) {
                         $("body").html(data);
                     }
                 });
@@ -277,10 +280,10 @@
 
 
     // 编辑信息的方法
-    function edit(id){
-        if(!id){
+    function edit(id) {
+        if (!id) {
             alert("error");
-        }else{
+        } else {
             // 先去查询数据
             $.ajax({
                 url: '<%=basePath%>/customer/findById.do',
@@ -290,7 +293,7 @@
                 data: JSON.stringify({
                     id: id
                 }),
-                success: function(data){
+                success: function (data) {
                     $("#id").val(data.id);
                     $("#name").val(data.name);
                     $("#telephone").val(data.telephone);
@@ -298,7 +301,7 @@
                     $("#remark").val(data.remark);
                     $("#editModal").modal('show');
                 },
-                error: function(){
+                error: function () {
                     alert("错误");
                 }
             });
@@ -306,7 +309,7 @@
     }
 
     //提交表单的方法
-    $(".editSure").click(function(){
+    $(".editSure").click(function () {
         $("#form_edit").submit();
     });
 

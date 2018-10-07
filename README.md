@@ -443,7 +443,7 @@ public PageBean findByPage(Customer customer, int pageCode, int pageSize) {
     //调用分页查询方法，其实就是查询所有数据，mybatis自动帮我们进行分页计算
     Page<Customer> page = customerMapper.findByPage(customer);
 
-    return new PageBean(pageCode, (int)(page.getTotal() / pageSize), (int)page.getTotal(), pageSize, page.getResult());
+    return new PageBean(pageCode, (int)Math.ceil((double)(page.getTotal() / (double)pageSize)), (int)page.getTotal(), pageSize, page.getResult());
 }
 ```
 
