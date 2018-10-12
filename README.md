@@ -89,11 +89,25 @@ public String login(@RequestParam String username,@RequestParam String password,
 }
 ```
 
-`@RequestMapping`标注`login()`方法有两个作用（前提是必须在XML中开启注解扫描`<context:component-scan/>`）：1.表示该方法是请求处理方法；2.指明了该方法的请求路径。`@RequestMapping`可以标记类或方法，分别表示了不同层级的请求路径。例如当前的`login()`方法的请求路径应为：`localhost:8080/xxx/login.do`
-对于请求体中包含多个参数的情况，我们尽量用`@RequestParam`标记参数，以免出现未知错误（但这不是必须的）。
-用户登录，我们首先获取到用户登录的用户名`username`和密码`password`，然后根据用户名查询并返回，根据此用户名查询到的密码与登录的密码进行`equals`，如果相等就登录成功。（当然我们要判断根据`username`查询后的返回值是否为null，不做判断会产生空指针问题，如果一个空值和另一个值相比显然会报错）。
-如果登录成功，将返回到`page/page.jsp`页面（这是根据我们在`springmvc.xml`下配置的视图解析器`InternalResourceViewResolver`决定的）;如果登录失败将返回到`page/loginInfo.jsp`页面。
+**注意**
 
+* `@RequestMapping`标注`login()`方法有两个作用（前提是必须在XML中开启注解扫描`<context:component-scan/>`）：1.表示该方法是请求处理方法；2.指明了该方法的请求路径。
+
+* `@RequestMapping`可以标记类或方法，分别表示了不同层级的请求路径。例如当前的`login()`方法的请求路径应为：`localhost:8080/xxx/login.do`（需要注意的是：本例中使用了IDEA开发工具，访问其部署到Tomcat上的项目默认是不加项目名的，但是使用eclipse访问项目可能默认需要加上项目名，具体要看实际开发工具中对Tomcat的配置）
+
+* 对于请求体中包含多个参数的情况，我们尽量用`@RequestParam`注解标记参数，以免出现未知错误（但这不是必须的）。`@RequestParam`注解能帮助识别请求体中的参数，比如请求体中传递的参数名是`id`，但是你用`int uid`接收就可能会报错400（请求参数错误），这时我们使用`@RequestParam("id")`就能帮助Spring装配这个参数。
+
+用户登录，我们首先获取到用户登录的用户名`username`和密码`password`，然后根据用户名查询并返回，根据此用户名查询到的密码与登录的密码进行`equals`，如果相等就登录成功。（当然我们要判断根据`username`查询后的返回值是否为null，不做判断会产生空指针问题，如果一个空值和另一个值相比显然会报错）。
+如果登录成功，将返回到`page/page.jsp`页面（这是根据我们在`springmvc.xml`下配置的视图解析器`InternalResourceViewResolver`决定的）;如果登录失败将返回到`page/loginInfo.jsp`页面。比如本项目中配置的视图解析器：
+
+```xml
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/WEB-INF/"/>
+	<property name="suffix" value=".jsp"/>
+</bean>
+```
+只要在SpringMVC的配置文件中配置了这个选项，SpringMVC就默认匹配Controller层（用@Controller标识的类）中返回值为String类型的映射方法中`return`的数据和`webapps/WEB-INF/xx.jsp`中JSP页面的文件名，映射方法（用@RequestMapping标识的方法）`return`的值和`/WEB-INF/`下某个JSP页面文件名相同就跳转到这个页面，否者就报错404。当然除了使用`@ResponseBody`标识的方法和`@RestController`标识的类，因为这两个注解会将其下的方法返回值都转换为JSON
+格式的数据，并且不会被`InternalResourceViewResolver`识别。
 
 ### 1.3 编写Mapper.xml
 
